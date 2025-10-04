@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Vine (Bloom Watcher)
+Comment=Watch Public/Private folders and upload to preferred servers
+Exec=vine-watcher
+Icon=org.bloom.Vine
+Terminal=false
+Type=Application
+Categories=Network;Utility;
+StartupNotify=false

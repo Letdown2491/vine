@@ -1,0 +1,30 @@
+{
+  "app-id": "org.bloom.Vine",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "24.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "vine-watcher",
+  "finish-args": [
+    "--share=network",
+    "--socket=session-bus",
+    "--talk-name=org.freedesktop.portal.Desktop",
+    "--device=dri",
+    "--env=RUST_LOG=info",
+    "--filesystem=xdg-documents/Bloom:create"
+  ],
+  "modules": [
+    {
+      "name": "vine-watcher",
+      "buildsystem": "simple",
+      "build-commands": [
+        "cargo --locked build --release -Z unstable-options --out-dir /app/bin"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "src-tauri"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "productName": "Vine",
+  "version": "0.1.0",
+  "identifier": "org.bloom.Vine",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:8080",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      { "title": "Vine", "width": 900, "height": 600, "visible": true }
+    ]
+  },
+  "bundle": {
+    "targets": ["appimage"],
+    "icon": ["icons/128.png", "icons/256.png", "icons/512.png"]
+  }
+}

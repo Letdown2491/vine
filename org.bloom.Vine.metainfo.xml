@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.bloom.Vine</id>
+  <name>Vine (Bloom Watcher)</name>
+  <summary>Auto-upload Public/Private folders to your Bloom servers</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <description>
+    <p>Watches ~/Bloom/Public and ~/Bloom/Private and uploads files once.</p>
+  </description>
+  <launchable type="desktop-id">org.bloom.Vine.desktop</launchable>
+  <provides><binary>vine-watcher</binary></provides>
+  <releases><release version="0.1.0"/></releases>
+</component>
