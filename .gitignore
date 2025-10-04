@@ -5,7 +5,7 @@ node_modules/
 dist/
 build/
 .vite/
-src-tauri/target
+src-tauri/target/
 
 # Cache and debug
 coverage/
