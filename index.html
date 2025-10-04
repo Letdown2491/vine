@@ -10,6 +10,46 @@
       <h1>Vine (Bloom Watcher)</h1>
       <p>Watching ~/Bloom/Public and ~/Bloom/Private…</p>
       <p>Uploads run in the background. Check system tray for status.</p>
+      <section id="remote-signer-root" style="margin-top: 24px; max-width: 420px;">
+        <h2 style="font-size: 1.1rem; margin-bottom: 8px;">Remote Signer</h2>
+        <p data-status style="margin-bottom: 12px;">Preparing remote signer support…</p>
+        <button
+          data-open-invite
+          type="button"
+          style="padding: 8px 14px; border-radius: 6px; border: 1px solid #d4d4d8; background: #fff; cursor: pointer;"
+        >
+          Connect with Remote Signer
+        </button>
+        <div
+          data-invite
+          hidden
+          style="margin-top: 16px; padding: 16px; border: 1px solid #e4e4e7; border-radius: 8px; background: #fafafa;"
+        >
+          <img
+            data-qr
+            alt="Remote signer pairing code"
+            hidden
+            style="display: block; width: 200px; height: 200px; margin: 0 auto 12px; background: #fff; padding: 8px; border-radius: 8px; border: 1px solid #e4e4e7;"
+          />
+          <div
+            data-uri-container
+            hidden
+            style="background: #f4f4f5; border-radius: 6px; padding: 12px; font-family: monospace; white-space: pre-wrap; word-break: break-all; margin-bottom: 12px;"
+          >
+            <span data-uri-value></span>
+          </div>
+          <button
+            data-copy-uri
+            type="button"
+            disabled
+            style="padding: 6px 12px; border-radius: 4px; border: 1px solid #d4d4d8; background: #fff; cursor: pointer;"
+          >
+            Copy link
+          </button>
+        </div>
+        <p data-welcome hidden style="margin-top: 12px; font-weight: 600;">Welcome!</p>
+        <p data-error hidden style="margin-top: 12px; color: #b91c1c;"></p>
+      </section>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

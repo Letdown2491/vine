@@ -1,9 +1,8 @@
 
-use anyhow::*;
-use tauri::{Manager, SystemTray, SystemTrayEvent};
-use std::{path::PathBuf};
-use tokio::{sync::mpsc, fs};
-use notify::{RecommendedWatcher, RecursiveMode, Watcher, EventKind};
+use anyhow::{anyhow, bail, Context, Result};
+use std::path::PathBuf;
+use tokio::{fs, sync::mpsc};
+use notify::{EventKind, RecursiveMode, Watcher};
 use directories::ProjectDirs;
 use rusqlite::{params, Connection};
 use sha2::{Sha256, Digest};
@@ -11,7 +10,6 @@ use serde::{Serialize, Deserialize};
 use rand::RngCore;
 use aes_gcm::{Aes256Gcm, Key, Nonce};
 use aes_gcm::aead::{Aead, KeyInit};
-use futures::StreamExt;
 
 #[derive(Clone)]
 struct AppCfg {
@@ -75,30 +73,11 @@ async fn start_watcher() -> Result<(), String> {
   inner_start_watcher().await.map_err(|e| format!("{:#}", e))
 }
 
-#[tokio::main]
-async fn main() -> Result<()> {
+fn main() -> Result<()> {
   tauri::Builder::default()
+    .plugin(tauri_plugin_notification::init())
     .invoke_handler(tauri::generate_handler![start_watcher])
-    .setup(|app| {
-      use tauri_plugin_notification::NotificationExt;
-
-      tauri::Builder::default()
-      .plugin(tauri_plugin_notification::init())
-      .invoke_handler(tauri::generate_handler![start_watcher])
-      /* ... */
-      .run(tauri::generate_context!())
-      .expect("error while running tauri application");
-      let tray = SystemTray::new();
-      app.set_system_tray(tray).unwrap();
-      Ok(())
-    })
-    .on_system_tray_event(|_app, event| {
-      if let SystemTrayEvent::LeftClick { .. } = event {
-        // Could open preferences window
-      }
-    })
-    .run(tauri::generate_context!())
-    .expect("error while running tauri application");
+    .run(tauri::generate_context!())?;
   Ok(())
 }
 
@@ -259,7 +238,7 @@ async fn upload_private(p: &PathBuf, _mime: &str, server: &str, key: & [u8;32]) 
   let nonce_bytes: [u8;12] = rand::random();
   let nonce = Nonce::from_slice(&nonce_bytes);
   let mut blob = cipher.encrypt(nonce, plaintext.as_ref())
-    .map_err(|_| anyhow::anyhow!("encrypt failed"))?;
+    .map_err(|_| anyhow!("encrypt failed"))?;
   let mut payload = nonce_bytes.to_vec();
   payload.append(&mut blob);
 
